@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var data = ViewBag.Data;
+}
+
+<div class="row">
+    <form enctype="multipart/form-data" class="form-inline" asp-action="UploadFile" asp-controller="Home">
+        <div class="form-group">
+            <label for="email">Upload excel file:</label>
+            <input type="file" name="formFile" class="form-control" id="email">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button> &nbsp;
+        <a asp-action="DataRefresh" asp-controller="Home" class="btn btn-default">Refresh</a>
+    </form>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table m-2">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Roll number</th>
+                    <th>Skill name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (data == null)
+                {
+                    <tr>
+                        <td colspan="4">
+                            No data is uploaded!
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in data as List<Resouce.ViewModels.StudentInfo>)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.StudentName</td>
+                            <td>@item.RollNumber</td>
+                            <td>@item.Skill</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
